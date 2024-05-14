@@ -14,34 +14,34 @@ async function getDbCollection(dbAddress, dbName, dbCollection) {
 	return db.collection(dbCollection);
 }
 
-app.get('/tasks', async function(req, res){
-	const collection = await getDbCollection('mongodb://127.0.0.1', 'todoapp', 'tasks');
+app.get('/titans', async function(req, res){
+	const collection = await getDbCollection('mongodb://127.0.0.1', 'titanbd', 'titans');
 	const data = await collection.find({}).toArray();
 	res.send(data);
 })
 
-app.get('/tasks/:id', async function(req, res){
-	const collection = await getDbCollection('mongodb://127.0.0.1', 'todoapp', 'tasks');
+app.get('/titans/:id', async function(req, res){
+	const collection = await getDbCollection('mongodb://127.0.0.1', 'titanbd', 'titans');
 	const data = await collection.findOne({_id: new ObjectId(req.params.id)});
 	res.send(data);
 })
 
-app.post('/tasks', async function(req, res){
-	const task = {...req.body, done: false};
-	const collection = await getDbCollection('mongodb://127.0.0.1', 'todoapp', 'tasks');
-	await collection.insertOne(task);
-	res.send(task);
+app.post('/titans', async function(req, res){
+	const ttn = {...req.body, Status: true};
+	const collection = await getDbCollection('mongodb://127.0.0.1', 'titanbd', 'titans');
+	await collection.insertOne(ttn);
+	res.send(ttn);
 })
 
-app.patch('/tasks/:id', async function(req, res){
-	const collection = await getDbCollection('mongodb://127.0.0.1', 'todoapp', 'tasks');
+app.patch('/titans/:id', async function(req, res){
+	const collection = await getDbCollection('mongodb://127.0.0.1', 'titanbd', 'titans');
 	const data = await collection.updateOne({_id: new ObjectId(req.params.id)}, {'$set':  req.body});
 	res.send({});
 })
 
-app.delete('/tasks/:id', async function(req, res){
+app.delete('/titans/:id', async function(req, res){
 	console.log(req.params.id);
-	const collection = await getDbCollection('mongodb://127.0.0.1', 'todoapp', 'tasks');
+	const collection = await getDbCollection('mongodb://127.0.0.1', 'titanbd', 'titans');
 	const data = await collection.deleteOne({_id: new ObjectId(req.params.id)});
 	res.send({});
 })
